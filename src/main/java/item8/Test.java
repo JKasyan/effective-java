@@ -6,10 +6,12 @@ package item8;
 public class Test {
 
     public static void main(String[] args) {
-        Point p = new Point(1, 2);
-        ColorPoint cp = new ColorPoint(1, 2, Color.BLUE);
-        System.out.println("p.equals(cp): " + p.equals(cp));
-        System.out.println("cp.equals(p): " + cp.equals(p));
+        ColorPoint p1 = new ColorPoint(1, 2, Color.RED);
+        Point p2 = new Point(1, 2);
+        ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);
+        System.out.println(p1.equals(p2));
+        System.out.println(p3.equals(p2));
+        System.out.println(p1.equals(p3));
     }
 }
 
@@ -47,8 +49,17 @@ class ColorPoint extends Point {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ColorPoint))
+        if(!(obj instanceof Point))
             return false;
+        /**
+         * If obj is point
+         */
+        if (!(obj instanceof ColorPoint))
+            return super.equals(obj);
+
+        /**
+         * Full compare when obj is ColorPrint
+         */
         ColorPoint c = (ColorPoint) obj;
         return super.equals(obj) && c.color == color;
     }
