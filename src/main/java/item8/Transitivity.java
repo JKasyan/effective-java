@@ -1,17 +1,27 @@
 package item8;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 /**
  * Created by evgen on 15.03.16.
  */
-public class Test {
+public class Transitivity {
 
     public static void main(String[] args) {
         ColorPoint p1 = new ColorPoint(1, 2, Color.RED);
         Point p2 = new Point(1, 2);
         ColorPoint p3 = new ColorPoint(1, 2, Color.BLUE);
         System.out.println(p1.equals(p2));
-        System.out.println(p3.equals(p2));
+        System.out.println(p2.equals(p3));
         System.out.println(p1.equals(p3));
+        /**
+         *
+         */
+        Date d1 = new Date(2015, 1, 1, 0, 0);
+        Timestamp d2 = new Timestamp(2015, 1, 1, 0, 0, 0, 0);
+        System.out.println(d1.equals(d2));
+        System.out.println(d2.equals(d1));
     }
 }
 
@@ -62,5 +72,30 @@ class ColorPoint extends Point {
          */
         ColorPoint c = (ColorPoint) obj;
         return super.equals(obj) && c.color == color;
+    }
+}
+
+
+class NewColorPoint {
+
+    /**
+     * Composition instead inheritance
+     */
+    private final Point point;
+    private final Color color;
+
+    public NewColorPoint(int x, int y, Color color) {
+        if (color == null)
+            throw new IllegalArgumentException();
+        this.point = new Point(x, y);
+        this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof NewColorPoint))
+            return false;
+        NewColorPoint p = (NewColorPoint) obj;
+        return p.point.equals(point) && p.color.equals(color);
     }
 }
