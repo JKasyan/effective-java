@@ -6,12 +6,11 @@ import java.util.Map;
 /**
  * Created by evgen on 16.03.16.
  */
-public final class PhoneNumber {
+public final class PhoneNumber implements Cloneable, Comparable<PhoneNumber> {
 
     private final short areaCode;
     private final short prefix;
     private final short lineNumber;
-    private volatile int hashCode;
 
     public PhoneNumber(int areaCode, int prefix, int lineNumber) {
         rangeCheck(areaCode, 999, "areaCode");
@@ -62,6 +61,22 @@ public final class PhoneNumber {
         }
     }
 
+    @Override
+    public int compareTo(PhoneNumber o) {
+        if(areaCode > o.areaCode)
+            return 1;
+        if(areaCode < o.areaCode)
+            return -1;
+        if(prefix > o.prefix)
+            return 1;
+        if(prefix < o.prefix)
+            return -1;
+        if(lineNumber > o.lineNumber)
+            return 1;
+        if(lineNumber < o.lineNumber)
+            return -1;
+        return 0;
+    }
 }
 
 class Main {

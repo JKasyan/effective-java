@@ -3,7 +3,7 @@ package item11;
 /**
  * Created by evgen on 16.03.16.
  */
-public class Person implements Cloneable {
+public class Person implements Cloneable, Comparable<Person> {
 
     private final int age;
 
@@ -48,6 +48,11 @@ public class Person implements Cloneable {
         return "Person{" +
                 "age=" + age +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return age > o.age ? 1 : -1;
     }
 }
 
